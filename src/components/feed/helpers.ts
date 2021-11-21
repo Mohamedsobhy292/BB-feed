@@ -8,7 +8,9 @@ export const formatDate = (date: string, language?: string) => {
     const selectedLanguage = language === 'es' ? 'es-ES' : 'en-GB'
     return new Intl.DateTimeFormat(selectedLanguage, {
         dateStyle: 'long',
-    }).format(new Date(date))
+    })
+        .format(new Date(date))
+        .replace(/de/g, '')
 }
 
 export const groupMissionsByDay = (data?: Mission[]) => {

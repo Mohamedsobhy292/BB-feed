@@ -5,6 +5,7 @@ import { Feed } from './components/feed'
 import { GetFeedResponse } from './types'
 import { GET_FEED } from './components/feed/get-feed-query'
 import { Loader } from './components/loader'
+import { useUpdateMeta } from './useUpdateMeta'
 
 type QueryResponse = {
     getFeed: GetFeedResponse
@@ -36,6 +37,8 @@ function App() {
         })
     }
     const [selectedLanguage, setSelectedLanguage] = useState('en')
+
+    useUpdateMeta(data?.getFeed?.items)
 
     return (
         <div className="App">

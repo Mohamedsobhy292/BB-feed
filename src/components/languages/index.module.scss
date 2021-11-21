@@ -18,6 +18,7 @@
     display: flex;
     transition: all 0.3s;
     text-transform: capitalize;
+    cursor: pointer;
 
     &.isActive {
         background: #a8caff;
