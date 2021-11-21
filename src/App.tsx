@@ -16,19 +16,18 @@ type QueryVariables = {
 }
 
 function App() {
-    const loading = true
-    const { data, fetchMore } = useQuery<QueryResponse, QueryVariables>(
-        GET_FEED,
-        {
-            variables: {
-                offset: 0,
-                limit: 4,
-            },
-            notifyOnNetworkStatusChange: true,
-        }
-    )
+    const { data, fetchMore, loading } = useQuery<
+        QueryResponse,
+        QueryVariables
+    >(GET_FEED, {
+        variables: {
+            offset: 0,
+            limit: 4,
+        },
+        notifyOnNetworkStatusChange: true,
+    })
 
-    const handleClick = () => {
+    const fetchNextMissions = () => {
         fetchMore({
             variables: {
                 offset: data?.getFeed.items.length,
@@ -40,11 +39,13 @@ function App() {
     return (
         <div className="App">
             {/* <Languages /> */}
-            <Feed data={data?.getFeed?.items} />
+            <Feed
+                data={data?.getFeed?.items}
+                fetchMore={fetchNextMissions}
+                isLoading={loading}
+                hasNextPage={data?.getFeed?.hasNextPage}
+            />
             {loading && <Loader />}
-            {data?.getFeed?.hasNextPage && (
-                <div onClick={handleClick}>fetch more</div>
-            )}
         </div>
     )
 }

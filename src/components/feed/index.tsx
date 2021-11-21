@@ -1,44 +1,42 @@
 import { Mission } from 'new-types'
+import { useEffect } from 'react'
 import { FeedItem } from './feed-item'
+import { groupMissionsByDay, formatDate } from './helpers'
 import classes from './index.module.scss'
 
 interface FeedProps {
     data?: Mission[]
+    fetchMore: () => void
+    isLoading: boolean
+    hasNextPage: boolean
 }
 
-interface Result {
-    [key: string]: Mission[]
-}
+export const Feed = ({
+    data,
+    fetchMore,
+    isLoading,
+    hasNextPage,
+}: FeedProps) => {
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    })
 
-export const Feed = ({ data }: FeedProps) => {
-    const groupMissionsByDay = () => {
-        const result: Result = {}
-        data?.forEach((element: Mission) => {
-            const day = element.date?.slice(0, 10)
-
-            if (!result[day]) {
-                result[day] = []
-            }
-
-            return result[day].push(element)
-        })
-
-        return result
+    const handleScroll = () => {
+        const onTheEndofPage =
+            window.innerHeight + document.documentElement.scrollTop !==
+            document.documentElement.offsetHeight
+        if (onTheEndofPage || isLoading || !hasNextPage) return
+        fetchMore()
     }
 
-    const groupedMissions = groupMissionsByDay()
+    const groupedMissions = groupMissionsByDay(data)
     const missionsData = Object.keys(groupedMissions).map((date) => {
         return {
             date,
             missions: groupedMissions[date],
         }
     })
-
-    const formatDate = (date: string) => {
-        return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(
-            new Date(date)
-        )
-    }
 
     return (
         <div>
