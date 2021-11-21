@@ -3,10 +3,11 @@
     margin: 0;
     padding: 0;
     display: flex;
+    margin-bottom: 44px;
 }
 
 .languageItem {
-    background: #F5F5F7;
+    background: #f5f5f7;
     margin: 0;
     border-radius: 8px;
     height: 28px;
@@ -15,4 +16,10 @@
     font-size: 12px;
     margin-right: 12px;
     display: flex;
+    transition: all 0.3s;
+    text-transform: capitalize;
+
+    &.isActive {
+        background: #a8caff;
+    }
 }

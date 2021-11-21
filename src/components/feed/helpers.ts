@@ -1,13 +1,14 @@
-import { Mission } from 'new-types'
+import { Mission } from 'types'
 
 interface Result {
     [key: string]: Mission[]
 }
 
-export const formatDate = (date: string) => {
-    return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(
-        new Date(date)
-    )
+export const formatDate = (date: string, language?: string) => {
+    const selectedLanguage = language === 'es' ? 'es-ES' : 'en-GB'
+    return new Intl.DateTimeFormat(selectedLanguage, {
+        dateStyle: 'long',
+    }).format(new Date(date))
 }
 
 export const groupMissionsByDay = (data?: Mission[]) => {
@@ -24,16 +25,4 @@ export const groupMissionsByDay = (data?: Mission[]) => {
     })
 
     return result
-}
-
-export const handleScroll = (
-    fetchMore: any,
-    loading: any,
-    hasNextPage: any
-) => {
-    const onTheEndofPage =
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-    if (onTheEndofPage || loading || !hasNextPage) return
-    fetchMore()
 }

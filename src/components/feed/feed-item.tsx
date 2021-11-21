@@ -1,13 +1,15 @@
 import { useRef, useState } from 'react'
 import classes from './index.module.scss'
 import { GiftIcon, FacebookIcon, InstagramIcon, PlayIcon } from '@/icons/index'
-import { Mission } from '../../new-types'
+import { useTranslation } from 'react-i18next'
+import { Mission } from 'types'
 
 type FeedItemProps = {
     mission: Mission
 }
 
 export const FeedItem = ({ mission }: FeedItemProps) => {
+    const { t } = useTranslation()
     const isFacebookItem = mission.__typename === 'FBPostMission'
     const isInstagramItem = mission.__typename === 'IGStoryMission'
 
@@ -43,7 +45,7 @@ export const FeedItem = ({ mission }: FeedItemProps) => {
                 )}
 
                 <span className={classes.label}>
-                    cash
+                    {t('cash')}
                     <span className={classes.circle}></span>
                     {isFacebookItem ? <FacebookIcon /> : <InstagramIcon />}
                 </span>
@@ -53,7 +55,7 @@ export const FeedItem = ({ mission }: FeedItemProps) => {
                 <h2 className={classes.title}>{mission.title}</h2>
                 <div className={classes.rewardContainer}>
                     <GiftIcon className={classes.giftIcon} />
-                    <span className={classes.reward}>Reward </span>{' '}
+                    <span className={classes.reward}> {t('reward')} </span>{' '}
                     <span className={classes.dollarSign}> $ </span>{' '}
                     {mission.cashReward}
                 </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { Languages } from './components/languages'
 import { Feed } from './components/feed'
-import { GetFeedResponse } from './new-types'
+import { GetFeedResponse } from './types'
 import { GET_FEED } from './components/feed/get-feed-query'
 import { Loader } from './components/loader'
 
@@ -35,15 +35,20 @@ function App() {
             },
         })
     }
+    const [selectedLanguage, setSelectedLanguage] = useState('en')
 
     return (
         <div className="App">
-            {/* <Languages /> */}
+            <Languages
+                selectedLanguage={selectedLanguage}
+                setSelectedLanguage={setSelectedLanguage}
+            />
             <Feed
+                selectedLanguage={selectedLanguage}
                 data={data?.getFeed?.items}
                 fetchMore={fetchNextMissions}
                 isLoading={loading}
-                hasNextPage={data?.getFeed?.hasNextPage}
+                hasNextPage={data?.getFeed?.hasNextPage || false}
             />
             {loading && <Loader />}
         </div>

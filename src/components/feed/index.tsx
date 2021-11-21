@@ -1,4 +1,4 @@
-import { Mission } from 'new-types'
+import { Mission } from 'types'
 import { useEffect } from 'react'
 import { FeedItem } from './feed-item'
 import { groupMissionsByDay, formatDate } from './helpers'
@@ -9,6 +9,7 @@ interface FeedProps {
     fetchMore: () => void
     isLoading: boolean
     hasNextPage: boolean
+    selectedLanguage: string
 }
 
 export const Feed = ({
@@ -16,6 +17,7 @@ export const Feed = ({
     fetchMore,
     isLoading,
     hasNextPage,
+    selectedLanguage,
 }: FeedProps) => {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -44,7 +46,7 @@ export const Feed = ({
                 return (
                     <div key={index}>
                         <h3 key={index} className={classes.date}>
-                            {formatDate(day.date)}
+                            {formatDate(day.date, selectedLanguage)}
                         </h3>
                         {day.missions.map((mission, index) => {
                             return <FeedItem mission={mission} key={index} />
