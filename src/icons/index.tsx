@@ -1,0 +1,5 @@
+export { FacebookIcon } from './facebook-icon'
+export { GiftIcon } from './gift-icon'
+export { InstagramIcon } from './instagram-icon'
+export { PlayIcon } from './play-icon'
+export { LoaderIcon } from './loader-icon'
