@@ -5,7 +5,7 @@ import { Feed } from './components/feed'
 import { GetFeedResponse } from './types'
 import { GET_FEED } from './components/feed/get-feed-query'
 import { Loader } from './components/loader'
-import { useUpdateMeta } from './useUpdateMeta'
+import { useUpdateMeta } from './hooks/use-update-meta'
 
 type QueryResponse = {
     getFeed: GetFeedResponse
