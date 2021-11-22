@@ -19,7 +19,7 @@ export const Languages = ({
     selectedLanguage,
     setSelectedLanguage,
 }: LanguagesProps) => {
-    const { t, i18n } = useTranslation()
+    const { i18n } = useTranslation()
     const handleClick = (language: string) => {
         i18n.changeLanguage(language)
         setSelectedLanguage(language)
